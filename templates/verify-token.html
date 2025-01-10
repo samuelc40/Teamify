@@ -1,0 +1,86 @@
+{% load static %}
+
+<!DOCTYPE html>
+<!-- Coding By CodingNepal - codingnepalweb.com -->
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> OTP verification </title>
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="{% static 'css/register.css' %}">
+                
+        <!-- Boxicons CSS -->
+        <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <style>
+            /* CSS transitions for smooth animation */
+            .animated-message {
+                transition: transform 1s ease-in-out;
+            }
+
+            /* Class to apply animation */
+            .slide-up {
+                transform: translateY(-220%);
+            }
+        </style>
+                        
+    </head>
+    <body>
+        
+        {% if messages %}
+
+        {% for message in messages %}
+
+        <!-- <center><div class="alert alert-{{message.tags}} col-lg-8 col-md-8 col-sm-8 col-xs-8 form-control text-fluid animated-message" style="height: 50px; width: 100%; z-index: 99; position: absolute;">    
+        <strong id="strong" style="color: black;">{{message}}</strong>
+        </div></center> -->
+
+        <div class="alert alert-{{message.tags}} col-lg-8 col-md-8 col-sm-8 col-xs-8 form-control text-fluid animated-message" style="height: 50px; width: 100%; z-index: 99; position: absolute;">    
+        <center><div style="width: 30%; padding: 10px 10px; height:50px; background:white; border-radius: 25px; align-items: center; justify-content: center; display:flex;">
+        <strong id="strong" style="color: black; font-size: 14px;">{{message}}</strong>
+        </div></center>
+        </div>
+
+        {% endfor %}
+
+        {% endif %}
+
+        <section class="container forms">
+            <div class="form login">
+                <div class="form-content">
+                    <header>Email verify</header>
+                    <form action="#" method="post">
+                        {% csrf_token %}
+                        <div class="field input-field">
+                            <input type="text" placeholder="Enter OTP" class="input" name="otp_code">
+                        </div>
+
+                        <div class="field button-field">
+                            <button type="submit">Activate account</button>
+                        </div>
+                    </form>
+
+                    <div class="form-link">
+                        <span style="font-size: 13px;">An OTP has been send to your email '{{email}}' <a href="{% url 'userauths:resend-otp' %}" class="link signup-link">Resend OTP</a></span>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+        <script>
+            setTimeout (() => {
+                $(".animated-message").addClass("slide-up");
+            }, 4000)
+        </script>    
+
+        <script src="{% static 'js/register.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        
+    </body>
+</html>
